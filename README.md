@@ -1,6 +1,12 @@
 # ClickingSucks
 
-Runescape macros:
+Messing around with Python to make Runescape macros.
+
+TeleAlch is a simple point and click using pyautogui.
+
+Ardy Mining uses CV
+
+Ardy
 
 ## TeleAlch 
 
