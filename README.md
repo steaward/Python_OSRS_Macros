@@ -6,7 +6,7 @@ TeleAlch is a simple point and click using pyautogui.
 
 Ardy Mining uses CV
 
-Ardy
+Still need to add Canfis Agility course. Code is done. 
 
 ## TeleAlch 
 
