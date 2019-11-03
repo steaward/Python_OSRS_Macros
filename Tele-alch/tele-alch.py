@@ -77,7 +77,15 @@ if __name__ == '__main__':
     teleCoords = getTeleCoords()["coordinates"]
     
     while True:
-        if datetime.now() < timeToRun:
+        now = datetime.now()
+        if now < timeToRun:
+            # every 15 minutes, take a break (33% of the time)
+            if now.minute % 15 == 0:
+                factor = random.randrange(1,4)
+                if factor == 3:
+                    print("Taking a break...")
+                    time.sleep(random.randrange(60,120))
+
             print("Running at current time: " + str(datetime.now()) + " Time to end: " + str(timeToRun))
             moveType = random.choice(movementType)
 
