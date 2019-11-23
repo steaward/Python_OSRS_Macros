@@ -1,15 +1,3 @@
-# # # # # # # # # # # # # # # # # # # # # # # #
-#   This is a script for RuneScape            #
-#                                             #
-#   You need 55 magic to use it               #
-#                                             #
-#   Please start with your magic window open. #
-#                                             #
-#   Type: py tele-alch n                      #
-#   where n = time(hours) to run for.         #
-#   Time to 99 mage = 150 hours.              #
-#                                             #
-# # # # # # # # # # # # # # # # # # # # # # # #
 
 import pyautogui
 import pynput
@@ -19,37 +7,38 @@ import time
 import sys
 from datetime import datetime, timedelta
 from pynput.mouse import Listener, Button, Controller
-
+from pynput.keyboard import Key, Controller as kbController
+ 
 # Globals
 movementType = [pyautogui.easeInQuad, pyautogui.easeOutQuad, pyautogui.easeInOutQuad]
 timesToAlch = [0.5, 0.6, 0.7, 0.8, 0.9, 1]
 timeToTele = [0.3, 0.4,0.5,0.6,0.7,0.8,0.9, 1]
-# Functions
-def click(t):
+offset = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
+
+def click(t, useShift = False):
+    keyboard = kbController()
     time.sleep(t)
-    pyautogui.click(button='left')
+    if (useShift):
+        keyboard.press(Key.shift)
+        time.sleep(0.1)
+        pyautogui.click(button='left')
+        time.sleep(0.3)
+        keyboard.release(Key.shift)
+    else:
+        pyautogui.click(button='left')
 
-def alch(x,y,t,mtype):
-    print("Alching x: " + str(x) + ", y: " + str(y))
-    pyautogui.moveTo(x,y,t,mtype)
-    click(t)
-    click(1.5)
 
-def tele(x,y,t,mtype):
-    print("Teleing x: " + str(x) + ", y: " + str(y))
-    pyautogui.moveTo(x,y,t,mtype)
-    click(t)
-
-def getAlchCoords():
+def getStallCoords():
     print("Getting alch coords...")
-    with open('alch_coords.json', 'r') as file:
+    with open('stall.json', 'r') as file:
                 loaded_data = json.load(file)
     return loaded_data
 
-def getTeleCoords():
+
+def getDropCoords():
     print("Getting alch coords...")
-    with open('tele_coords.json', 'r') as file:
-                loaded_data = json.load(file)   
+    with open('drop.json', 'r') as file:
+                loaded_data = json.load(file)
     return loaded_data
 
 def logout():
@@ -63,6 +52,17 @@ def logout():
     pyautogui.moveTo(coords[1][0], coords[1][1], 1)
     click(1)
 
+def thieve(x,y,t,mtype):
+    print("Thieving stall at x: " + str(x) + ", y: " + str(y))
+    pyautogui.moveTo(x,y,t,mtype)
+    click(t)
+
+def drop(x,y,t,mtype):
+    print("Dropping silk at x: " + str(x) + ", y: " + str(y))
+    pyautogui.moveTo(x,y,t,mtype)
+    click(t, True)
+
+
 # Main
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -73,9 +73,8 @@ if __name__ == '__main__':
         sys.exit(0)
 
     print("Starting tele alch")
-    alchCoords = getAlchCoords()["coordinates"]
-    teleCoords = getTeleCoords()["coordinates"]
-    
+    stallCoords = getStallCoords()["coordinates"]
+    dropCoords = getDropCoords()["coordinates"]
     while True:
         now = datetime.now()
         if now < timeToRun:
@@ -89,22 +88,17 @@ if __name__ == '__main__':
             print("Running at current time: " + str(datetime.now()) + " Time to end: " + str(timeToRun))
             moveType = random.choice(movementType)
 
-            # TELE
-            timeToClickTele = random.choice(timeToTele) 
-            goToTeleCoords = random.choice(teleCoords)
-            tele(goToTeleCoords[0], goToTeleCoords[1], timeToClickTele, moveType)
+            #  THIEVE
+            theiveCoords = random.choice(stallCoords)
+            timeToClick = random.choice(offset)
+            thieve(theiveCoords[0], theiveCoords[1], timeToClick, moveType)
 
-            # ALCH
-            timeToClickAlch = random.choice(timesToAlch) 
-            goToAlchCoords = random.choice(alchCoords)
-            alch(goToAlchCoords[0], goToAlchCoords[1],timeToClickAlch,moveType)
+            # DROP ITEM
+            itemdropCoords = random.choice(dropCoords)
+            drop(itemdropCoords[0], itemdropCoords[1],timeToClick + 0.4,moveType)
+
+            time.sleep(4)
         else:
             print("Ending session at: " + str(datetime.now()))
             logout()
             sys.exit(0)
-
-        
-
-    
-       
-

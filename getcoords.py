@@ -6,7 +6,6 @@ from pynput.mouse import Listener, Button, Controller
 def on_click(x, y, button, pressed):
     if pressed:
         endTime = datetime.datetime(2019,7,29,4,0,0)
-        print(datetime.datetime.now())
         if datetime.datetime.now() > endTime:
             if button == Button.left:
                 x, y = pyautogui.position()
