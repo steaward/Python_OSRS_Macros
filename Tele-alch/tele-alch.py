@@ -23,7 +23,7 @@ from pynput.mouse import Listener, Button, Controller
 # Globals
 movementType = [pyautogui.easeInQuad, pyautogui.easeOutQuad, pyautogui.easeInOutQuad]
 timesToAlch = [0.5, 0.6, 0.7, 0.8, 0.9, 1]
-timeToTele = [0.3, 0.4,0.5,0.6,0.7,0.8,0.9, 1]
+timeToTele = [0.3, 0.4,0.5,0.6,0.7,0.8]
 # Functions
 def click(t):
     time.sleep(t)
