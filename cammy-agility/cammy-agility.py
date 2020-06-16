@@ -42,9 +42,10 @@ if __name__ == '__main__':
         print("Please enter a time to run for.")
         sys.exit(0)
 
-    print("Starting wildy agility course...")
-
+    print("Starting cammy agility course...")
+    lapped = False
     while True:
+        
         now = datetime.now()
         if now < timeToRun:
             # every 15 minutes, take a break (33% of the time)
@@ -59,44 +60,67 @@ if __name__ == '__main__':
 
             coords = getCoords()["coordinates"]
             # MOVE
-            print("1st obstacle.")
-            pyautogui.moveTo(coords[0][0], coords[0][1], 0.5)
-            click(0)
+            if (not lapped):
+                print("1st obstacle.")
+                pyautogui.moveTo(coords[0][0], coords[0][1], 0.5)
+                click(0)
 
             
-            time.sleep(7)
+            time.sleep(5)
             print("2nd obstacle.")
             pyautogui.moveTo(coords[1][0], coords[1][1], 0.5)
             click(0)
 
             
-            time.sleep(6)
+            time.sleep(8)
             print("3rd obstacle.")
             pyautogui.moveTo(coords[2][0], coords[2][1], 0.5)
             click(0)
 
             
-            time.sleep(5)
+            time.sleep(7)
             print("4th obstacle.")
             pyautogui.moveTo(coords[3][0], coords[3][1], 0.5)
             click(0)
 
             
-            time.sleep(7)
+            time.sleep(8)
             print("5th obstacle.")
             pyautogui.moveTo(coords[4][0], coords[4][1], 0.5)
             click(0)
 
             
-            time.sleep(6)
+            time.sleep(5)
             print("6th obstacle.")
             pyautogui.moveTo(coords[5][0], coords[5][1], 0.5)
             click(0)
 
+            time.sleep(5)
             print("7th obstacle.")
             pyautogui.moveTo(coords[6][0], coords[6][1], 0.5)
             click(0)
+
             time.sleep(5)
+            print("8th obstacle.")
+            pyautogui.moveTo(coords[7][0], coords[7][1], 0.5)
+            click(0)
+
+            time.sleep(6)
+            print("9th obstacle.")
+            pyautogui.moveTo(coords[8][0], coords[8][1], 0.5)
+            click(0)
+
+            time.sleep(5)
+            print("10th obstacle.")
+            pyautogui.moveTo(coords[9][0], coords[9][1], 0.5)
+            click(0)
+
+            time.sleep(9)
+            print("Endth obstacle.")
+            pyautogui.moveTo(coords[9][0], coords[9][1], 0.5)
+            click(0)
+
+            lapped = True
             
         else:
             print("Ending session at: " + str(datetime.now()))
