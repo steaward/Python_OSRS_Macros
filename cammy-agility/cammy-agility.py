@@ -42,9 +42,14 @@ def click(t):
     pyautogui.click(button='left')
     
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
+    if (len(sys.argv) == 2):
         now = datetime.now()
         timeToRun = now + timedelta(minutes = int(sys.argv[1]) )
+        checkForMarksArg = 0
+    elif (len(sys.argv) == 3):
+        now = datetime.now()
+        timeToRun = now + timedelta(minutes = int(sys.argv[1]) )
+        checkForMarksArg = int(sys.argv[2])
     else:
         print("Please enter a time to run for.")
         sys.exit(0)
@@ -54,11 +59,14 @@ if __name__ == '__main__':
     checkForMarks = False
     numberOfLaps = 0
     while True:
-        if (numberOfLaps % 3 == 0 or numberOfLaps == 0):
+        if (checkForMarksArg == 1):
+            checkForMarks = True
+        elif (numberOfLaps % 5 == 0 and numberOfLaps is not 0):
             checkForMarks = True
         else:
             checkForMarks = False
 
+        checkForMarksArg = 0 # revert this back now that we are going to be looping over and over and want to hit the second check.
         now = datetime.now()
         if now < timeToRun:
             # every 15 minutes, take a break (33% of the time)
