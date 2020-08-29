@@ -26,6 +26,7 @@ from pynput.mouse import Listener, Button, Controller
 movementType = [pyautogui.easeInQuad, pyautogui.easeOutQuad, pyautogui.easeInOutQuad]
 running = False
 laps = 0
+delay = 0
 
 def getCoords():
     variation = random.randint(1,1)
@@ -49,7 +50,7 @@ def click(t):
     if running:
         t = t - 0.5
 
-    time.sleep(t)
+    time.sleep(t + delay)
 
 def moveToCoord(x, y, time, step):
     print("Coordinate #" + str(step +1) + " x:" + str(x) + " y:" + str(y))
@@ -68,7 +69,11 @@ if __name__ == '__main__':
                 running = True
             
             if sys.argv[3] != None:
-                laps = 5
+                laps = 6
+
+            if sys.argv[4] != None:
+                delay = int(sys.argv[4])
+
         except:
             print("Not all arguments given.")
 
@@ -92,7 +97,7 @@ if __name__ == '__main__':
             moveType = random.choice(movementType)
 
             # MOVE
-            if laps % 5 == 0 and laps != 0:
+            if laps % 3 == 0 and laps != 0:
                 print("Getting marks, lap # " + str(laps))
                 coords = getMarkCoords()["coordinates"]
                 for i in range(len(coords)):
