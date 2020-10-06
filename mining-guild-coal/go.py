@@ -59,21 +59,20 @@ def click(t, btn, doubleClick = False):
 
     time.sleep(t)
 
-def moveToCoord(x, y, time, btn, step, doubleClick = False):
-    print("Coordinate #" + str(step +1) + " x:" + str(x) + " y:" + str(y) + " wait time: " +str(time) + " delay: " + str(delay))
+def moveToCoord(x, y, tm, btn, step, doubleClick):
+    print("Coordinate #" + str(step +1) + " x:" + str(x) + " y:" + str(y) + " wait time: " +str(tm) + " delay: " + str(delay))
     pyautogui.moveTo(x,y)
-    # doubleClick = random.randint(0,3)
-    # if doubleClick == 2:
-    #     click(0.5)
+    if doubleClick == True:
+        click(0.25, btn)
 
-    click(time + delay, btn, doubleClick)
+    click(tm + delay, btn)
 
 def returnToMine():
     print("Returning to mine...")
     coords = getCoords("return")["coordinates"]
 
     for i in range(len(coords)):
-        moveToCoord(coords[i][0],coords[i][1], coords[i][2], coords[i][3],i)    
+        moveToCoord(coords[i][0],coords[i][1], coords[i][2], coords[i][3],i, False)    
 
     return True
 
@@ -83,7 +82,7 @@ def mine(i):
     offset = random.randint(0,0)
     timeOffSet = random.randrange(100,999)/1000
     for i in range(len(coords)):
-        moveToCoord(coords[i][0] + offset,coords[i][1] + offset, coords[i][2] + timeOffSet, coords[i][3], i, True)
+        moveToCoord(coords[i][0] + offset, coords[i][1] + offset, coords[i][2] + timeOffSet, coords[i][3], i, True)
 
     time.sleep(1)
 
@@ -92,7 +91,7 @@ def bank():
     coords = getCoords("bank")["coordinates"]
 
     for i in range(len(coords)):
-        moveToCoord(coords[i][0],coords[i][1], coords[i][2],coords[i][3], i)
+        moveToCoord(coords[i][0],coords[i][1], coords[i][2],coords[i][3], i, False)
     
     return True
 
