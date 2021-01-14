@@ -65,9 +65,15 @@ def logout():
 
 # Main
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
+    alchOnly = True
+    teleOnly = False
+    if len(sys.argv) == 2:
         now = datetime.now()
         timeToRun = now + timedelta(minutes = int(sys.argv[1]) )
+    elif len(sys.argv) == 3:
+        now = datetime.now()
+        timeToRun = now + timedelta(minutes = int(sys.argv[1]) )
+        alchOnly = True
     else:
         print("Please enter a time to run for.")
         sys.exit(0)
@@ -90,14 +96,17 @@ if __name__ == '__main__':
             moveType = random.choice(movementType)
 
             # TELE
-            timeToClickTele = random.choice(timeToTele) 
-            goToTeleCoords = random.choice(teleCoords)
-            tele(goToTeleCoords[0], goToTeleCoords[1], timeToClickTele, moveType)
+            if not alchOnly:
+                timeToClickTele = random.choice(timeToTele) 
+                goToTeleCoords = random.choice(teleCoords)
+                tele(goToTeleCoords[0], goToTeleCoords[1], timeToClickTele, moveType)
 
             # ALCH
-            timeToClickAlch = random.choice(timesToAlch) 
-            goToAlchCoords = random.choice(alchCoords)
-            alch(goToAlchCoords[0], goToAlchCoords[1],timeToClickAlch,moveType)
+            if not teleOnly:
+                timeToClickAlch = random.choice(timesToAlch) 
+                goToAlchCoords = random.choice(alchCoords)
+                alch(goToAlchCoords[0], goToAlchCoords[1],timeToClickAlch,moveType)
+                time.sleep(random.randint(0,3))
         else:
             print("Ending session at: " + str(datetime.now()))
             logout()
