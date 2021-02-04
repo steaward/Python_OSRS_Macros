@@ -63,7 +63,9 @@ def click(t, btn, doubleClick = False):
 
 def moveToCoord(x, y, tm, btn, step, doubleClick):
     print("Coordinate #" + str(step +1) + " x:" + str(x) + " y:" + str(y) + " wait time: " +str(tm) + " delay: " + str(delay))
-    pyautogui.moveTo(x,y)
+    moveType = random.choice(movementType)
+    moveSpeed = random.uniform(0.1, 1.5)
+    pyautogui.moveTo(x,y, moveSpeed, moveType)
     if doubleClick == True:
         click(0.25, btn)
 
