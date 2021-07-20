@@ -1,16 +1,9 @@
-# ClickingSucks
+# Clicking Sucks, so I automated it.
 
 Messing around with Python to make Runescape macros.
 
-TeleAlch is a simple point and click using pyautogui.
+Multiple scripts to do mundane things in the game of Oldschool Runescape.
 
-Ardy Mining uses CV
+Utilizes CV libary to detect objects in game, and click on them.
 
-Still need to add Canfis Agility course. Code is done. 
-
-## TeleAlch 
-
-Catherby + High Alch 
-
-## Ardy Mining 
-Mine iron and either bank it, or drop it. 
+Or simply remembers a list of coordinates, time between each click, and re-plays them back over and over for a set period of time.
